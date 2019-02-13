@@ -1,0 +1,22 @@
+{
+  "name": "project-bg",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "Mateusz <mateusz.kibilko@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^4.3.0",
+    "jquery": "^3.3.1"
+  }
+}
