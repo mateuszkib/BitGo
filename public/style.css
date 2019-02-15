@@ -14,3 +14,7 @@
     color: #efb22e;
     text-decoration: none;
 }
+
+form > button {
+    color: white !important;
+}

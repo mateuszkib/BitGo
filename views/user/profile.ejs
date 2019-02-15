@@ -5,6 +5,35 @@
 <body>
     <% include ../nav %>
 
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 offset-md-3 mt-5">
+                <div class="well well-sm">
+                    <div class="media">
+                        <img class="media-object" src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" height="200"
+                            width="200">
+                        <div class="media-body ml-3">
+                            <h4 class="media-heading"><%= user.name.full %></h4>
+                            <p><span class="label label-info">Email: <%= user.email.email %></span>
+                                <div class="form-group">
+                                    <label for="selCoin">Select coins</label>
+                                    <select class="form-control" id="selCoin">
+                                        <option>Bitcoin (TBTC)</option>
+                                        <option>Bitcoin Cash (TBCH)</option>
+                                    </select>
+                                </div>
+                                <p>
+                                    <a href="/user/wallet" class="btn btn-xs btn-info">Wyświetl portfel</a>
+                                </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <% include ../footer %>
 
     <% include ../scripts %>
