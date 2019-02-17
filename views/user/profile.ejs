@@ -14,13 +14,15 @@
                         <img class="media-object" src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" height="200"
                             width="200">
                         <div class="media-body ml-3">
+                            <%if (user) { %>
                             <h4 class="media-heading"><%= user.name.full %></h4>
                             <p><span class="label label-info">Email: <%= user.email.email %></span>
+                            <% } %>
                                 <div class="form-group">
                                     <label for="selCoin">Select coins</label>
                                     <select class="form-control" id="selCoin">
-                                        <option>Bitcoin (TBTC)</option>
-                                        <option>Bitcoin Cash (TBCH)</option>
+                                        <option id="coin" value="tbtc">Bitcoin (TBTC)</option>
+                                        <option id="coin" value="tbch">Bitcoin Cash (TBCH)</option>
                                     </select>
                                 </div>
                                 <p>
@@ -28,6 +30,9 @@
                                 </p>
                         </div>
                     </div>
+                </div>
+                <div id="div1">
+
                 </div>
             </div>
         </div>

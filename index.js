@@ -9,7 +9,9 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 
 
+
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'scripts')));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(session({
