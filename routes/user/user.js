@@ -103,9 +103,7 @@ router.get('/wallet/:coin/:id', (req,res) => {
         console.log('Balance is: ' + (wallet.balance() / 1e8).toFixed(4));
 
         wallet.transfers().then(function(transfers){
-            console.log(transfers.transfers[0].entries);
-            console.log(transfers.transfers[0].inputs);
-            console.log(transfers.transfers[0].outputs);
+            console.log(transfers);
             res.render('user/wallet', {
                 wallet: transfers.transfers
             });

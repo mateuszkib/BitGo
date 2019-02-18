@@ -8,7 +8,7 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-md-8 mt-5">
+            <div class="col-md-8 offset-md-2 mt-5">
                 <table class="table">
                     <tr>
                         <th>Date</th>
@@ -17,13 +17,15 @@
                         <th>Amount</th>
                         <th>Balance</th>
                     </tr>
+                    <% wallet.forEach(function(wall){ %>
                     <tr>
-                        <% wallet.forEach(function(wall){ %>
                         <td>
                             <p><%= wall.date %></p>
                         </td>
                         <td>
-                            <p><%= wall.coin %></p>
+                            <p>
+                                <%-JSON.stringify(wall.entries)%>
+                            </p>
                         </td>
                         <td>
                             <p><%= wall.state %></p>
@@ -32,10 +34,10 @@
                             <p><%= (wall.value / 1e8).toFixed(4) %></p>
                         </td>
                         <td>
-                            <p><%= wall.coin %></p>
+                            <p><%= (wall.inputs[0].value / 1e8).toFixed(4) %></p>
                         </td>
-                        <% }); %>
                     </tr>
+                    <% }); %>
                 </table>
 
             </div>
