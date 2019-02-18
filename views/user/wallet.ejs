@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<% include ../header %>
+
+<body>
+    <% include ../nav %>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 mt-5">
+                <table class="table">
+                    <tr>
+                        <th>Date</th>
+                        <th>To/From</th>
+                        <th>Status</th>
+                        <th>Amount</th>
+                        <th>Balance</th>
+                    </tr>
+                    <tr>
+                        <% wallet.forEach(function(wall){ %>
+                        <td>
+                            <p><%= wall.date %></p>
+                        </td>
+                        <td>
+                            <p><%= wall.coin %></p>
+                        </td>
+                        <td>
+                            <p><%= wall.state %></p>
+                        </td>
+                        <td>
+                            <p><%= (wall.value / 1e8).toFixed(4) %></p>
+                        </td>
+                        <td>
+                            <p><%= wall.coin %></p>
+                        </td>
+                        <% }); %>
+                    </tr>
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+
+    <% include ../footer %>
+
+    <% include ../scripts %>
+
+</body>
+
+</html>

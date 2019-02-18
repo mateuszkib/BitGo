@@ -65,15 +65,16 @@ router.get('/send', (req,res) => {
     };*/
     bitgo.coin('tbtc').wallets().get({ id: '5c617d6f50032abf03d4e69e940fc032' }, function(err, wallet) {
         if (err) { console.log('Error getting wallet!'); console.dir(err); return process.exit(-1); }
-        //console.log(wallet.balance());
+        console.log("Wallet: ");
+        console.log(wallet.baseCoin);
         //console.log('Balance is: ' + (wallet.balance() / 1e8).toFixed(4));
 
-        bitgo.unlock({ otp: '0000000' })
+        /*bitgo.unlock({ otp: '0000000' })
             .then(function(unlockResponse) {
                 console.dir(unlockResponse);
-            });
+            });*/
 
-        let params = {
+        /*let params = {
             amount: 0.01 * 1e6,
             address: '2NFKhjGVPF5GWT3usovtEGL2yDEqiQGEWR4',
             walletPassphrase: 'heszkewmeszke'
@@ -82,7 +83,7 @@ router.get('/send', (req,res) => {
             .then(function(transaction) {
                 // print transaction details
                 console.dir(transaction);
-            });
+            });*/
     });
 });
 
@@ -92,6 +93,25 @@ router.post('/wallet', (req, res) => {
         .then(function (wallets) {
             res.send(wallets);
         });
+});
+
+router.get('/wallet/:coin/:id', (req,res) => {
+    let id = req.params.id;
+    let coin = req.params.coin;
+    bitgo.coin(coin).wallets().get({ id: id }, function(err, wallet) {
+        if (err) { console.log('Error getting wallet!'); console.dir(err); return process.exit(-1); }
+        console.log('Balance is: ' + (wallet.balance() / 1e8).toFixed(4));
+
+        wallet.transfers().then(function(transfers){
+            console.log(transfers.transfers[0].entries);
+            console.log(transfers.transfers[0].inputs);
+            console.log(transfers.transfers[0].outputs);
+            res.render('user/wallet', {
+                wallet: transfers.transfers
+            });
+        });
+
+    });
 });
 
 module.exports = router;
