@@ -29,14 +29,11 @@ tr:hover {
     align-items: center;
 }
 
-.sendCoinButton a {
+.sendCoinButton {
     color: #000;
 }
 
-.sendCoinButton:hover a {
+.sendCoinButton:hover {
     color: #fff;
-}
-
-a:hover {
     text-decoration: none;
 }

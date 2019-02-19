@@ -93,10 +93,16 @@ router.get('/send/:coin/:id', (req, res) => {
     coin = req.params.coin;
     coinUpper = coin.toUpperCase();
 
-    res.render('user/sendCoin', {
-        coin: coinUpper,
-        id: req.params.id
+    bitgo.coin(coin).wallets().get({id : req.params.id})
+    .then(function(wallet){
+        let availableCoin = wallet.balance() / 1e8;
+        res.render('user/sendCoin', {
+            coin: coinUpper,
+            id: req.params.id,
+            available: availableCoin
+        });
     });
+
 });
 
 router.post('/wallet', (req, res) => {
