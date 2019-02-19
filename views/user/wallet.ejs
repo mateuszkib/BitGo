@@ -9,6 +9,9 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8 offset-md-2 mt-5">
+                    <a href="/user/send/<%= coin%>/<%= id%>"><button class="btn btn-outline-dark btn-lg sendCoinButton">Send</button></a>
+            </div>
+            <div class="col-md-8 offset-md-2 mt-5">
                 <table class="table">
                     <tr>
                         <th>Date</th>
@@ -24,7 +27,7 @@
                         </td>
                         <td>
                             <p>
-                                <%-JSON.stringify(wall.entries)%>
+                                <!---<%-JSON.stringify(wall.entries)%>-->
                             </p>
                         </td>
                         <td>

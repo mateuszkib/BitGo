@@ -22,3 +22,21 @@ form > button {
 tr:hover {
     cursor: pointer;
 }
+
+.coinFlex {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.sendCoinButton a {
+    color: #000;
+}
+
+.sendCoinButton:hover a {
+    color: #fff;
+}
+
+a:hover {
+    text-decoration: none;
+}
