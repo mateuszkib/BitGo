@@ -8,26 +8,36 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-md-8 offset-md-2 mt-5">
-                    <a href="/user/send/<%= coin%>/<%= id%>" class="sendCoinButton"><button class="btn btn-outline-dark btn-lg">Send</button></a>
+            <div class="col-md-5 offset-md-1 mt-5">
+                <a href="/user/send/<%= coin%>/<%= id%>" class="sendCoinButton"><button
+                        class="btn btn-outline-dark btn-lg">Send</button></a>
             </div>
-            <div class="col-md-8 offset-md-2 mt-5">
+            <div class="col-md-5 offset-md-1c mt-5 text-right">
+                <h2><%= balance %> <%= coin %></h2>
+            </div>
+            <div class="col-md-10 offset-md-1 mt-5">
                 <table class="table">
                     <tr>
                         <th>Date</th>
                         <th>To/From</th>
                         <th>Status</th>
                         <th>Amount</th>
-                        <th>Balance</th>
                     </tr>
                     <% wallet.forEach(function(wall){ %>
                     <tr>
                         <td>
-                            <p><%= wall.date %></p>
+                            <p><%= moment(wall.date).format("YYYY-MM-DD H:m:s")  %></p>
                         </td>
                         <td>
                             <p>
-                                <!---<%-JSON.stringify(wall.entries)%>-->
+                                <%  Object.keys(wall.entries).forEach(function (key) { %>
+                                    <% if(id == wall.entries[key].wallet && wall.type === 'receive') {%>
+                                        Received at <%= wall.entries[key].address %>
+                                    <% } else if(wall.type === 'send' && key == 0) { %>
+                                        Send to <%= wall.entries[key].address %>
+                                    <% } %>
+                                <% }) %>
+
                             </p>
                         </td>
                         <td>
@@ -36,9 +46,6 @@
                         <td>
                             <p><%= (wall.value / 1e8).toFixed(4) %></p>
                         </td>
-                        <td>
-                            <p><%= (wall.inputs[0].value / 1e8).toFixed(4) %></p>
-                        </td>
                     </tr>
                     <% }); %>
                 </table>
@@ -46,7 +53,6 @@
             </div>
         </div>
     </div>
-
 
     <% include ../footer %>
 

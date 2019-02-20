@@ -17,7 +17,7 @@
                             <%if (user) { %>
                             <h4 class="media-heading"><%= user.name.full %></h4>
                             <p><span class="label label-info">Email: <%= user.email.email %></span>
-                            <% } %>
+                                <% } %>
                                 <div class="form-group">
                                     <label for="selCoin">Select coins</label>
                                     <select class="form-control" id="selCoin">
@@ -40,6 +40,10 @@
     <% include ../footer %>
 
     <% include ../scripts %>
+
+    <script>
+        $("#selCoin").prop("selectedIndex", 0);
+    </script>
 
 </body>
 

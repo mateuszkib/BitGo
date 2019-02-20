@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const BitgoJS = require('bitgo');
+const moment = require('moment');
 
 const bitgo = new BitgoJS.BitGo();
 
@@ -118,14 +119,17 @@ router.get('/wallet/:coin/:id', (req, res) => {
     let coin = req.params.coin;
     bitgo.coin(coin).wallets().get({ id: id }, function (err, wallet) {
         if (err) { console.log('Error getting wallet!'); console.dir(err); return process.exit(-1); }
-        console.log('Balance is: ' + (wallet.balance() / 1e8).toFixed(4));
+        //console.log('Balance is: ' + (wallet.balance() / 1e8).toFixed(4));
+        let balance = (wallet.balance() / 1e8).toFixed(4);
 
         wallet.transfers().then(function (transfers) {
             console.log(transfers);
             res.render('user/wallet', {
                 wallet: transfers.transfers,
                 id: id,
-                coin: coin
+                coin: coin,
+                balance: balance,
+                moment: moment
             });
         });
 
