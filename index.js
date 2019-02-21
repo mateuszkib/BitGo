@@ -32,12 +32,6 @@ app.get('/', (req,res) => {
   res.render('layout');
 });
 
-app.get('/test', (req,res) => {
-  bitgo.me({}, (err, user) => {
-    console.log(user);
-  })
-});
-
 app.use('/user', userRouter);
 
 

@@ -12,7 +12,6 @@ $('#selCoin').change(function () {
         success: function(resp) {
             $.each(resp.wallets, (i, item) => {
                 let rows = "<tr data-href='/user/wallet/" + selectCoin + "/" + item._wallet.id  + " ' " + "class='clickable-row'><td>" + item._wallet.label +"</td><td>" + (item._wallet.balance / 1e8).toFixed(4) + "</td><td>" + "$"+((item._wallet.balance / 1e8).toFixed(4) * 3710.43).toFixed(2) + "</td>" + "</tr>";
-                console.log(item);
                 $('table tbody').append(rows);
             });
         },

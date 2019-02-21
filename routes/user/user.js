@@ -34,7 +34,6 @@ router.post('/logout', (req, res) => {
 
 router.get('/profile', (req, res) => {
     bitgo.me({}, (err, user) => {
-        //console.log(user);
         if (err) {
             res.locals.error = err;
         }
@@ -42,29 +41,12 @@ router.get('/profile', (req, res) => {
             user: user
         });
     });
-
-    /*var e = document.getElementById("selCoin");
-    console.log(e);
-
-    let selectCoin = $('#selCoin option:selected').val();*/
-    /*request({
-        url: '/user/profile',
-        method: 'GET',
-        data: {
-            coin: selectCoin
-        }
-    }, function (err, res, body) {
-        console.log(res);
-    });*/
 });
 
 router.post('/send/:id', (req, res) => {
 
     bitgo.coin('tbtc').wallets().get({ id: req.params.id }, function (err, wallet) {
         if (err) { console.log('Error getting wallet!'); console.dir(err); return process.exit(-1); }
-        //console.log("Wallet: ");
-        //console.log(wallet.baseCoin);
-        //console.log('Balance is: ' + (wallet.balance() / 1e8).toFixed(4));
 
         bitgo.unlock({ otp: '0000000' })
             .then(function (unlockResponse) {
