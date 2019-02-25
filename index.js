@@ -3,10 +3,12 @@ const app = express();
 const path = require('path');
 const PORT = process.env.PORT || 3000;
 const session = require('express-session');
-const userRouter = require('./routes/user/user');
+const userRouter = require('./routes/user/bitgo-user');
+const userExchRouter = require('./routes/user/exch-user');
 const BitgoJS = require('bitgo');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
+const db = require('./db/db.js');
 
 
 
@@ -33,6 +35,7 @@ app.get('/', (req,res) => {
 });
 
 app.use('/user', userRouter);
+app.use('/exchange/user', userExchRouter);
 
 
 app.listen(PORT, () => {

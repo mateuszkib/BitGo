@@ -33,6 +33,12 @@ router.post('/logout', (req, res) => {
 
 
 router.get('/profile', (req, res) => {
+    let address = '2NAyUTuNSJaCoxjtNkaG4aHMa36pkAbbCY3';
+    bitgo.coin('tbtc').wallets().getWalletByAddress({ address: address })
+        .then(function (wallet) {
+            // print the wallet
+            console.dir(wallet._wallet);
+        });
     bitgo.me({}, (err, user) => {
         if (err) {
             res.locals.error = err;
@@ -56,8 +62,9 @@ router.post('/send/:id', (req, res) => {
         let params = {
             recipients: [{
                 amount: req.body.amount * 1e8,
-                address: req.body.address, }],
-                walletPassphrase: req.body.password
+                address: req.body.address,
+            }],
+            walletPassphrase: req.body.password
         };
 
         wallet.sendMany(params)
@@ -65,7 +72,7 @@ router.post('/send/:id', (req, res) => {
                 // print transaction details
                 res.redirect('/user/profile');
                 console.dir(transaction);
-            }).catch(function(err) {
+            }).catch(function (err) {
                 console.log(err);
             });
 
@@ -76,15 +83,15 @@ router.get('/send/:coin/:id', (req, res) => {
     coin = req.params.coin;
     coinUpper = coin.toUpperCase();
 
-    bitgo.coin(coin).wallets().get({id : req.params.id})
-    .then(function(wallet){
-        let availableCoin = wallet.balance() / 1e8;
-        res.render('user/sendCoin', {
-            coin: coinUpper,
-            id: req.params.id,
-            available: availableCoin
+    bitgo.coin(coin).wallets().get({ id: req.params.id })
+        .then(function (wallet) {
+            let availableCoin = wallet.balance() / 1e8;
+            res.render('user/sendCoin', {
+                coin: coinUpper,
+                id: req.params.id,
+                available: availableCoin
+            });
         });
-    });
 
 });
 
