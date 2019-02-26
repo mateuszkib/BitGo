@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<% include ../header %>
+
+<body>
+    <% include ../nav %>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 offset-md-3 mt-5">
+                <div class="well well-sm">
+                    <div class="media">
+                        <img class="media-object" src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" height="200"
+                            width="200">
+                        <div class="media-body ml-3">
+                            <h4 class="media-heading"><%= user._id %></h4>
+                            <p><span class="label label-info">Email: <%= user.email %></span>
+                        </div>
+                    </div>
+                </div>
+                <form action="/exchange/user/createWallet/<%= user._id%>" method="POST">
+                    <div class="form-group mt-5">
+                        <h2>Create wallet</h2>
+                        <select class="form-control" name="select">
+                            <option selected disabled hidden> -- Choose coin -- </option>
+                            <option id="coin" name="tbtc" value="tbtc">Bitcoin (TBTC)</option>
+                            <option id="coin" name="tbch" value="tbch">Bitcoin Cash (TBCH)</option>
+                            <option id="coin" name="tbsv" value="tbsv">Bitcoin SV (TBSV)</option>
+                            <option id="coin" name="teth" value="teth">Ethereum (TETH)</option>
+                            <option id="coin" name="xrp" value="xrp">XRP</option>
+                            <option id="coin" name="tltc" value="tltc">Litecoin (TLTC)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" name="password" class="form-control" placeholder="Enter password wallet">
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary addWallet">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <% include ../footer %>
+
+    <% include ../scripts %>
+
+    <script>
+        $("#selCoin").prop("selectedIndex", 0);
+    </script>
+
+</body>
+
+</html>

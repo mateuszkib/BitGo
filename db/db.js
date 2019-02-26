@@ -1,4 +1,4 @@
-let db = require('mongodb');
+let db = require('mongoose');
 
 let url = "mongodb://localhost:27017/test";
 

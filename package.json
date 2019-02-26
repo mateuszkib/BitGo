@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "ajax-request": "^1.2.3",
+    "bcrypt": "^3.0.4",
     "bitgo": "^4.45.0",
     "body-parser": "^1.18.3",
     "cookie-parser": "^1.4.4",
@@ -22,6 +23,7 @@
     "jsdom": "^13.2.0",
     "moment": "^2.24.0",
     "mongodb": "^3.1.13",
+    "mongoose": "^5.4.15",
     "pg": "^7.8.0",
     "pug": "^2.0.3"
   }
