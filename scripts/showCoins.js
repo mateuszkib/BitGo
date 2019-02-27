@@ -21,23 +21,6 @@ $('#selCoin').change(function () {
     });
 });
 
-/*$('#selectCoin').change(function () {
-    let coin = $('#selectCoin option:selected').val();
-    let id = $('h4.media-heading').text();
-    $('.addWallet').click(function () {
-        $.ajax({
-            url: "/exchange/user/createWallet/" + id,
-            method: "POST",
-            data: { coin: coin },
-            success: function (resp) {
-                console.log(resp);
-            },
-            error: function (err) {
-                console.log(err);
-            }
-        });
-    });
-});*/
 
 $(document).on('click', '.clickable-row', function () {
     let link = $(this).attr('data-href');

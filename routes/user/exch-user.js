@@ -47,10 +47,9 @@ router.post('/createWallet/:id', (req, res) => {
         try {
             let user = await getUser(req.params.id);
             let label = "EX:" + user._id + coin;
-            console.log("Coin: " + coin);
-            console.log("Password: " + password);
-
             let wallet = await addWallet(coin, label, password);
+            let updateUser = await updateUserWalletId(user._id, wallet.wallet._wallet.id);
+            
         } catch (err) {
             console.log(err);
         }
@@ -58,14 +57,6 @@ router.post('/createWallet/:id', (req, res) => {
     res.send('ok');
     createWallet();
 
-    // console.log(user);
-    //let label = "Ex: " + 
-    /*bitgo.coin(coin).wallets()
-        .generateWallet({ label: req.body.label, passphrase: req.body.password })
-        .then(function (wallet) {
-            res.send('Successfully add wallet!');
-            console.dir(wallet);
-        });*/
 });
 
 function getUser(id) {
@@ -78,7 +69,6 @@ function getUser(id) {
 
 function addWallet(coin, label, password) {
     return new Promise((resolve, reject) => {
-        console.log("password 2: " + password);
         bitgo.coin(coin).wallets()
             .generateWallet({ label: label, passphrase: password })
             .then(function (wallet) {
@@ -91,14 +81,13 @@ function addWallet(coin, label, password) {
 function updateUserWalletId(id, walletID) {
     return new Promise((resolve, reject) => {
         User.findById(id, (err, user) => {
-            user.idWallet = walletID;
+            user.idWallet.push(walletID);
 
             user.save((err) => {
                 if (err) {
                     console.log(err);
                     return;
                 }
-                res.redirect('/');
             })
         });
     });
