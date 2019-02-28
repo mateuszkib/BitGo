@@ -8,7 +8,7 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-md-6 offset-md-3 mt-5">
+            <div class="col-md-6 mt-5">
                 <div class="well well-sm">
                     <div class="media">
                         <img class="media-object" src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" height="200"
@@ -39,6 +39,17 @@
                         <button type="submit" class="btn btn-primary addWallet">Submit</button>
                     </div>
                 </form>
+            </div>
+            <div class="col-md-6 mt-5">
+                <h2 class="text-center">All wallets</h2>
+                <ul>
+                    <% labels.forEach(function(label) { %>
+                        <li>
+                            <%= label %>
+                        </li>
+                    <% }) %>
+                    
+                </ul>
             </div>
         </div>
     </div>

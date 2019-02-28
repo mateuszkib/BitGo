@@ -34,9 +34,31 @@ router.post('/register', (req, res) => {
 
 router.get('/profile/:id', (req, res) => {
     User.findById(req.params.id, (err, user) => {
-        res.render('exch-user/profile', {
-            user: user
-        });
+
+        let walletsLength = user.idWallet.length;
+        let labelWallets = [];
+        for (let i = 0; i < walletsLength; i++) {
+            labelWallets.push(new Promise((resolve, reject) => {
+                bitgo.coin(user.idWallet[i].coin).wallets().get({ id: user.idWallet[i].id })
+                .then((wallet) => {
+                    resolve({wallet: wallet, user: user});
+                });
+            }))
+        }
+        let result = Promise.all(labelWallets);
+        result.then((data) => {
+            let labels = [];
+            let user = data[0].user;
+
+            data.forEach((item) => {
+                labels.push(item.wallet._wallet.label);
+            });
+
+            res.render('exch-user/profile', {
+                labels: labels,
+                user: user    
+            });
+        })
     });
 });
 
@@ -48,15 +70,13 @@ router.post('/createWallet/:id', (req, res) => {
             let user = await getUser(req.params.id);
             let label = "EX:" + user._id + coin;
             let wallet = await addWallet(coin, label, password);
-            let updateUser = await updateUserWalletId(user._id, wallet.wallet._wallet.id);
-            
+            let updateUser = await updateUserWalletId(user._id, wallet.wallet._wallet.id, coin);
+            //let redirect = await refreshPage(res, user._id);
         } catch (err) {
             console.log(err);
         }
     }
-    res.send('ok');
     createWallet();
-
 });
 
 function getUser(id) {
@@ -65,6 +85,10 @@ function getUser(id) {
             resolve(user);
         })
     });
+}
+
+function refreshPage(res,id){
+    res.redirect('/exchange/user/profile/' + id);
 }
 
 function addWallet(coin, label, password) {
@@ -78,10 +102,10 @@ function addWallet(coin, label, password) {
     })
 }
 
-function updateUserWalletId(id, walletID) {
+function updateUserWalletId(id, walletID, coin) {
     return new Promise((resolve, reject) => {
         User.findById(id, (err, user) => {
-            user.idWallet.push(walletID);
+            user.idWallet.push({ id: walletID, coin: coin });
 
             user.save((err) => {
                 if (err) {
@@ -92,6 +116,5 @@ function updateUserWalletId(id, walletID) {
         });
     });
 }
-
 
 module.exports = router;
