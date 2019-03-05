@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<% include ../header %>
+
+<body>
+    <% include ../nav %>
+
+
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col-md-8">
+                <h2>Receive</h2>
+
+                <p class="mt-3">Current Receive Address</p>
+                <input class="form-control" type="text" value="<%= current %>" disabled>
+
+                <p class="mt-5">Address Label</p>
+                <input class="form-control" type="text" value="<%= label %>">
+
+            </div>
+        </div>
+        <form action="/exchange/user/createAddress/<%= userId %>/<%= coin%>/<%= idWallet%>" method="POST" class="mt-5">
+            <div class="form-group row">
+                <input type="text" name="label" placeholder="Enter your address label..." class="form-control col-md-8" style="margin-left: 15px;">
+                <div class="col-md-3">
+                    <button type="submit" class="btn btn-dark btn-generate-addr">Generate new address</button>
+                </div>
+            </div>
+        </form>
+        <div class="row">
+            <table class="table wallet-table-address">
+                <tr>
+                    <th>Label</th>
+                    <th>Address</th>
+                </tr>
+                <% addresses.addresses.forEach(function(addr) { %>
+                <tr>
+                    <td><%= addr.label %></td>
+                    <td><%= addr.address %></td>
+                </tr>
+                <% }) %>
+            </table>
+        </div>
+    </div>
+
+
+    <% include ../footer %>
+
+    <% include ../scripts %>
+
+</body>
+
+</html>

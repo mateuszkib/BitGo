@@ -43,12 +43,11 @@
             <div class="col-md-6 mt-5">
                 <h2 class="text-center">All wallets</h2>
                 <ul>
-                    <% labels.forEach(function(label) { %>
+                    <% labels.forEach(function(wallet) { %>
                         <li>
-                            <%= label %>
+                            <a href="/exchange/user/profile/<%= user._id%>/<%= wallet.coin%>/<%= wallet.id %>"><%= wallet.label %></a>
                         </li>
                     <% }) %>
-                    
                 </ul>
             </div>
         </div>

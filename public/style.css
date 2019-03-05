@@ -1,3 +1,7 @@
+a:hover {
+    text-decoration: none;
+}
+
 .footer {
     position: absolute;
     bottom: 0;
@@ -35,5 +39,16 @@ tr:hover {
 
 .sendCoinButton:hover {
     color: #fff;
-    text-decoration: none;
+}
+
+.wallet-table-address {
+    margin-top: 10%;
+}
+
+.wallet-table-address tr,th{
+    text-align: center;
+}
+
+.btn-generate-addr a {
+    color: #fff;
 }
