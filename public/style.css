@@ -52,3 +52,17 @@ tr:hover {
 .btn-generate-addr a {
     color: #fff;
 }
+
+.list-wallet {
+    list-style: none;
+    text-align: center;
+}
+
+.list-wallet li {
+    border-bottom: 1px solid lightgray;
+    padding: 8px;
+}
+
+.list-wallet li a {
+    color: #000;
+}

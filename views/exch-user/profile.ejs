@@ -41,8 +41,8 @@
                 </form>
             </div>
             <div class="col-md-6 mt-5">
-                <h2 class="text-center">All wallets</h2>
-                <ul>
+                <h2 class="text-center" style="border-bottom: 2px solid lightgray;">All wallets</h2>
+                <ul class="list-wallet">
                     <% labels.forEach(function(wallet) { %>
                         <li>
                             <a href="/exchange/user/profile/<%= user._id%>/<%= wallet.coin%>/<%= wallet.id %>"><%= wallet.label %></a>
