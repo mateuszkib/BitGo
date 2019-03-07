@@ -6,7 +6,7 @@
     <% include ../nav %>
 
 
-    <div class="container">
+    <div class="container mb-5">
         <div class="row mt-5">
             <div class="col-md-8">
                 <h2>Receive</h2>
@@ -34,11 +34,12 @@
                     <th>Address</th>
                 </tr>
                 <% addresses.addresses.forEach(function(addr) { %>
+                    <%if(addr.chain === 10 || addr.chain === 0) { %>
                 <tr>
                     <td><%= addr.label %></td>
                     <td><%= addr.address %></td>
                 </tr>
-                <% }) %>
+                <% } }) %>
             </table>
         </div>
     </div>

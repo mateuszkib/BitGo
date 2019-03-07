@@ -6,6 +6,11 @@ const bcrypt = require('bcrypt');
 
 const bitgo = new BitgoJS.BitGo({ accessToken: 'v2xa530fa0ce6bb4a86528ccbf9ddee54aba0f495ad204f2fbfde207bbd5bcbc137' });
 
+bitgo.unlock({ otp: '0000000' })
+    .then(function (unlockResponse) {
+        //console.dir(unlockResponse);
+    });
+
 router.get('/register', (req, res) => {
     res.render('exch-user/register');
     console.log(User);
@@ -88,12 +93,19 @@ router.get('/profile/:id/:coin/:idWallet/receive', (req, res) => {
 
     bitgo.coin(coin).wallets().get({ id: idWallet })
         .then((wallet) => {
-            wallet.addresses()
+            wallet.addresses({sort: -1})
                 .then((addresses) => {
-                    console.log(addresses);
-                    let totalAddress = addresses.totalAddressCount;
-                    let currentAddress = addresses.addresses[totalAddress - 1].address;
-                    let currentLabelAddress = addresses.addresses[totalAddress - 1].label;
+                    //console.log(addresses);
+                    let receiveAddresses = [];
+                    addresses.addresses.forEach(function(item) {
+                        if(item.chain != 11) {
+                            receiveAddresses.push(item);
+                        }
+                    });
+
+                    let currentAddress = receiveAddresses[0].address;
+                    let currentLabelAddress = receiveAddresses[0].label;
+                    
                     res.render('exch-user/wallet-receive', {
                         addresses: addresses,
                         idWallet: idWallet,
@@ -102,6 +114,35 @@ router.get('/profile/:id/:coin/:idWallet/receive', (req, res) => {
                         label: currentLabelAddress,
                         userId: userId
                     })
+                });
+        });
+});
+
+router.get('/profile/:id/:coin/:idWallet/send', (req, res) => {
+
+    res.render('exch-user/wallet-send', {
+        coin: req.params.coin,
+        idWallet: req.params.idWallet,
+        userId: req.params.id
+    });
+});
+
+router.post('/send/:coin/:idWallet/:userId', (req, res) => {
+    bitgo.coin(req.params.coin).wallets().get({ id: req.params.idWallet })
+        .then((wallet) => {
+            let params = {
+                amount: req.body.amount * 1e8,
+                address: req.body.address,
+                walletPassphrase: req.body.password
+            }
+
+            wallet.send(params)
+                .then(function (transaction) {
+                    // print transaction details
+                    res.redirect('/exchange/user/profile/' + req.params.userId);
+                    console.dir(transaction);
+                }).catch(function (err) {
+                    console.log(err);
                 });
         });
 });
@@ -117,6 +158,7 @@ router.get('/profile/:id/:coin/:idWallet', (req, res) => {
                 userId: userId,
                 idWallet: idWallet,
                 coin: coin,
+                wallet: wallet
             })
         });
 });
