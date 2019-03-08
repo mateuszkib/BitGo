@@ -15,13 +15,24 @@
                 <input class="form-control" type="text" value="<%= current %>" disabled>
 
                 <p class="mt-5">Address Label</p>
-                <input class="form-control" type="text" value="<%= label %>">
+                <form action="/exchange/user/updateLabel/<%= coin%>/<%= idWallet%>" method="POST">
+                <input id="label-address" class="form-control" type="text" onkeydown="keyCode(event)"
+                    value="<%- (label === undefined) ? 'Receive address 0' : label %>">
+                    <div id="hide-buttons" class="form-group row hide-element">
+                        <button type="submit" class="btn btn-primary">Update</button>
+                        <button class="btn btn-outline-primary cancel-button">Cancel</button>
+                    </div>
+                </form>
 
+
+                <input id="hidden-input" type="hidden"
+                    value="<%- (label === undefined) ? 'Receive address 0' : label %>">
             </div>
         </div>
         <form action="/exchange/user/createAddress/<%= userId %>/<%= coin%>/<%= idWallet%>" method="POST" class="mt-5">
             <div class="form-group row">
-                <input type="text" name="label" placeholder="Enter your address label..." class="form-control col-md-8" style="margin-left: 15px;">
+                <input type="text" name="label" placeholder="Enter your address label..." class="form-control col-md-8"
+                    style="margin-left: 15px;">
                 <div class="col-md-3">
                     <button type="submit" class="btn btn-dark btn-generate-addr">Generate new address</button>
                 </div>
@@ -34,9 +45,9 @@
                     <th>Address</th>
                 </tr>
                 <% addresses.addresses.forEach(function(addr) { %>
-                    <%if(addr.chain === 10 || addr.chain === 0) { %>
+                <%if(addr.chain === 10 || addr.chain === 0) { %>
                 <tr>
-                    <td><%= addr.label %></td>
+                    <td><%- (label === undefined) ? 'Receive address 0' : addr.label %></td>
                     <td><%= addr.address %></td>
                 </tr>
                 <% } }) %>

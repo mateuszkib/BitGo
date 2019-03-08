@@ -45,7 +45,7 @@
                 <ul class="list-wallet">
                     <% labels.forEach(function(wallet) { %>
                         <li>
-                            <a href="/exchange/user/profile/<%= user._id%>/<%= wallet.coin%>/<%= wallet.id %>"><%= wallet.label %></a>
+                            <a href="/exchange/user/profile/<%= user._id%>/<%= wallet.coin%>/<%= wallet.id %>"><%= wallet.label %> - <span style="color: #007bff;"><%= (wallet.balance / 1e8).toFixed(4) %> <%= (wallet.coin).toUpperCase() %></span></a>
                         </li>
                     <% }) %>
                 </ul>

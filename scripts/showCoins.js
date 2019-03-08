@@ -21,6 +21,28 @@ $('#selCoin').change(function () {
     });
 });
 
+function getValueFromInput(){
+    let text = document.getElementById('hidden-input').value;
+    return text;
+}
+
+function keyCode(event) {
+    let x = event.keyCode;
+
+    if(x) {
+        let el = document.getElementById('hide-buttons');
+        el.classList.remove('hide-element');
+        el.classList.add('show-element');
+    }
+}
+
+let text = $('#label-address').val();
+
+$(document).on('click', '.cancel-button', function() {
+    $('#hide-buttons').removeClass('show-element');
+    $('#hide-buttons').addClass('hide-element');
+    $('#label-address').val(text);
+});
 
 $(document).on('click', '.clickable-row', function () {
     let link = $(this).attr('data-href');

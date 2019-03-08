@@ -56,7 +56,7 @@ router.get('/profile/:id', (req, res) => {
             let user = data[0].user;
 
             data.forEach((item) => {
-                wallet.push({ label: item.wallet._wallet.label, id: item.wallet._wallet.id, coin: item.wallet._wallet.coin });
+                wallet.push({ label: item.wallet._wallet.label, id: item.wallet._wallet.id, coin: item.wallet._wallet.coin, balance: item.wallet._wallet.balance });
             });
             console.log(wallet);
             res.render('exch-user/profile', {
@@ -105,7 +105,7 @@ router.get('/profile/:id/:coin/:idWallet/receive', (req, res) => {
 
                     let currentAddress = receiveAddresses[0].address;
                     let currentLabelAddress = receiveAddresses[0].label;
-                    
+
                     res.render('exch-user/wallet-receive', {
                         addresses: addresses,
                         idWallet: idWallet,
@@ -179,6 +179,18 @@ router.post('/createAddress/:idUser/:coin/:idWallet', (req, res) => {
     }, 3000)
 });
 
+router.post('/updateLabel/:coin/:idWallet', (req,res) => {
+    bitgo.coin(req.params.coin).wallets().get({ id : req.params.idWallet })
+    .then((wallet) => {
+        wallet.setLabel({label: 'test label', address : '2ND7mNauDkGws7QVnyamtJmHMDURKogocip'}, function(err, result) {
+            if (err) {
+                console.log(err);
+                process.exit(-1);
+            }
+            console.log('Set label ' + result.label + ' on address ' + result.address);
+        });
+    });
+});
 
 function createAddress(coin, id, label) {
     bitgo.coin(coin).wallets().get({ id: id })

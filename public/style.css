@@ -5,6 +5,14 @@ body {
    height:100%;
 }
 
+.hide-element {
+    display: none;
+}
+
+.show-element {
+    display: block;
+}
+
 a:hover {
     text-decoration: none;
 }
@@ -72,4 +80,20 @@ tr:hover {
 
 .list-wallet li a {
     color: #000;
+}
+
+.wallet-info i, .wallet-info a {
+    font-size: 22px;
+}
+
+.wallet-info a {
+    margin-left: 5px;
+}
+
+.wallet-info > div:first-of-type {
+    border-bottom: 1px solid lightgrey;
+}
+
+#hide-buttons {
+    margin: 10px 0 0 0;
 }
